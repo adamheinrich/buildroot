@@ -14,7 +14,7 @@ config BR2_PACKAGE_JACK2
 	# Ensure we get at least one:
 	select BR2_PACKAGE_JACK2_LEGACY if !BR2_PACKAGE_JACK2_DBUS
 	help
-	  JACK Audio Connection Kit (server and example clients).
+	  JACK Audio Connection Kit (JACK 2 implementation).
 
 	  JACK is a low-latency sound server, allowing multiple
 	  applications to connect to one audio device, and to share
@@ -22,6 +22,11 @@ config BR2_PACKAGE_JACK2
 	  jackd as well as some example clients.
 
 	  http://jackaudio.org/
+
+	  Another implementation (BR2_PACKAGE_JACK1) is also available,
+	  please consult the documentation to choose the right one:
+
+	  https://github.com/jackaudio/jackaudio.github.com/wiki/Q_difference_jack1_jack2
 
 if BR2_PACKAGE_JACK2
 
@@ -52,3 +57,7 @@ comment "jack2 needs a toolchain w/ threads, C++, dynamic library"
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
 	depends on !BR2_TOOLCHAIN_HAS_THREADS || !BR2_INSTALL_LIBSTDCPP || \
 		BR2_STATIC_LIBS
+
+comment "do not enable jack1 and jack2 together"
+	depends on BR2_PACKAGE_JACK1
+	depends on BR2_PACKAGE_JACK2
